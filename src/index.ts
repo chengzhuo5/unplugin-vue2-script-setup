@@ -12,14 +12,14 @@ export const unplugin = createUnplugin<PluginOptions>((options = {}) => {
   )
 
   return {
-    name: 'unplugin-vue2-script-setup',
+    name: '@minar-kotonoha/unplugin-vue2-script-setup-sync',
     enforce: 'pre',
     transformInclude(id) {
       return filter(id)
     },
-    async transform(code, id) {
+    transform(code, id) {
       try {
-        return await transform(code, id, options)
+        return transform(code, id, options)
       }
       catch (e: any) {
         this.error(e)

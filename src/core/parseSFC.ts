@@ -14,6 +14,7 @@ import type {
 import { baseParse } from '@vue/compiler-core'
 import { parserOptions } from '@vue/compiler-dom'
 import { camelize } from '@vue/shared'
+import pug from 'pug'
 import type {
   ParsedSFC,
   ScriptSetupTransformOptions,
@@ -273,11 +274,11 @@ function getBabelParserOptions(lang: string | null | undefined) {
     plugins,
   }
 }
-export async function parseSFC(
+export function parseSFC(
   code: string,
   id?: string,
   options?: ScriptSetupTransformOptions,
-): Promise<ParsedSFC> {
+): ParsedSFC {
   const elementChildren = baseParse(code, parserOptions).children.flatMap(x =>
     x.type === NodeTypes.ELEMENT && x.tagType === ElementTypes.ELEMENT
       ? [x]
@@ -367,7 +368,7 @@ export async function parseSFC(
             && p.value.content === 'pug',
       )
         ? baseParse(
-          (await import('pug')).compile(
+          pug.compile(
             templateNode.children.map(x => x.loc.source).join(''),
             {
               filename: id,
