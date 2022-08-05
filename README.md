@@ -1,6 +1,8 @@
-# unplugin-vue2-script-setup
+# @minar-kotonoha/unplugin-vue2-script-setup-sync
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-vue2-script-setup?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue2-script-setup)
+这个版本将转换函数从异步改为同步，以解决Jest@27以上版本报错的问题。
+
+[![NPM version](https://img.shields.io/npm/v/@minar-kotonoha/unplugin-vue2-script-setup-sync?color=a1b858&label=)](https://www.npmjs.com/package/@minar-kotonoha/unplugin-vue2-script-setup-sync)
 
 Bring [`<script setup>`](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to Vue 2. Works for Vite, Nuxt, Vue CLI, Webpack, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
 
@@ -9,7 +11,7 @@ Bring [`<script setup>`](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-scri
 ## Install
 
 ```bash
-npm i -D unplugin-vue2-script-setup
+npm i -D @minar-kotonoha/unplugin-vue2-script-setup-sync
 npm i @vue/composition-api
 ```
 
@@ -29,12 +31,14 @@ Vue.use(VueCompositionAPI)
 // vite.config.ts
 import { defineConfig } from 'vite'
 import { createVuePlugin as Vue2 } from 'vite-plugin-vue2'
-import ScriptSetup from 'unplugin-vue2-script-setup/vite'
+import ScriptSetup from '@minar-kotonoha/unplugin-vue2-script-setup-sync/vite'
 
 export default defineConfig({
   plugins: [
     Vue2(),
-    ScriptSetup({ /* options */ }),
+    ScriptSetup({
+      /* options */
+    }),
   ],
 })
 ```
@@ -55,13 +59,15 @@ Example: [`playground/`](./playground/)
 
 ```ts
 // vue.config.js
-const ScriptSetup = require('unplugin-vue2-script-setup/webpack').default
+const ScriptSetup = require('@minar-kotonoha/unplugin-vue2-script-setup-sync/webpack').default
 
 module.exports = {
   parallel: false, // disable thread-loader, which is not compactible with this plugin
   configureWebpack: {
     plugins: [
-      ScriptSetup({ /* options */ }),
+      ScriptSetup({
+        /* options */
+      }),
     ],
   },
 }
@@ -78,12 +84,14 @@ npm i -D @vue/cli-plugin-typescript vue-tsc
 ```
 
 ```ts
-const ScriptSetup = require('unplugin-vue2-script-setup/webpack').default
+const ScriptSetup = require('@minar-kotonoha/unplugin-vue2-script-setup-sync/webpack').default
 module.exports = {
   parallel: false,
   configureWebpack: {
     plugins: [
-      ScriptSetup({ /* options */ }),
+      ScriptSetup({
+        /* options */
+      }),
     ],
   },
   chainWebpack(config) {
@@ -112,12 +120,14 @@ And then use [`vue-tsc`](https://github.com/johnsoncodehk/volar) to do the type 
 
 ```ts
 // webpack.config.js
-const ScriptSetup = require('unplugin-vue2-script-setup/webpack').default
+const ScriptSetup = require('@minar-kotonoha/unplugin-vue2-script-setup-sync/webpack').default
 module.exports = {
   /* ... */
   plugins: [
-    ScriptSetup({ /* options */ }),
-  ]
+    ScriptSetup({
+      /* options */
+    }),
+  ],
 }
 ```
 
@@ -129,13 +139,15 @@ module.exports = {
 ```ts
 // rollup.config.js
 import Vue from 'rollup-plugin-vue'
-import ScriptSetup from 'unplugin-vue2-script-setup/rollup'
+import ScriptSetup from '@minar-kotonoha/unplugin-vue2-script-setup-sync/rollup'
 
 export default {
   plugins: [
     Vue(),
-    ScriptSetup({ /* options */ }),
-  ]
+    ScriptSetup({
+      /* options */
+    }),
+  ],
 }
 ```
 
@@ -147,7 +159,7 @@ export default {
 ```ts
 // esbuild.config.js
 import { build } from 'esbuild'
-import ScriptSetup from 'unplugin-vue2-script-setup/esbuild'
+import ScriptSetup from '@minar-kotonoha/unplugin-vue2-script-setup-sync/esbuild'
 build({
   /* ... */
   plugins: [
@@ -171,7 +183,7 @@ npm i -D vue-jest
 // jest.config.js
 module.exports = {
   transform: {
-    '.*\\.(vue)$': 'unplugin-vue2-script-setup/jest',
+    '.*\\.(vue)$': '@minar-kotonoha/unplugin-vue2-script-setup-sync/jest',
   },
 }
 ```
@@ -182,9 +194,9 @@ module.exports = {
 <summary>JavaScript API</summary><br>
 
 ```ts
-import { transform } from 'unplugin-vue2-script-setup'
+import { transform } from '@minar-kotonoha/unplugin-vue2-script-setup-sync'
 
-const Vue2SFC = await transform(`
+const Vue2SFC = transform(`
 <template>
   <!-- ... -->
 </template>
@@ -216,9 +228,7 @@ If the global types are missing for your IDE, update your `tsconfig.json` with:
 ```jsonc
 {
   "compilerOptions": {
-    "types": [
-      "unplugin-vue2-script-setup/types"
-    ]
+    "types": ["@minar-kotonoha/unplugin-vue2-script-setup-sync/types"]
   }
 }
 ```
@@ -240,7 +250,7 @@ Volar preferentially supports Vue 3. Vue 3 and Vue 2 template has some different
 
 ###### ESLint
 
-If you are using ESLint, you might get `@typescript-eslint/no-unused-vars` warning with `<script setup>`. You can disable it and add `noUnusedLocals: true` in your `tsconfig.json`, Volar will infer the real missing locals correctly for you. 
+If you are using ESLint, you might get `@typescript-eslint/no-unused-vars` warning with `<script setup>`. You can disable it and add `noUnusedLocals: true` in your `tsconfig.json`, Volar will infer the real missing locals correctly for you.
 
 ## Configurations
 
@@ -255,7 +265,7 @@ To enabled it, pass the option:
 
 ```ts
 ScriptSetup({
-  reactivityTransform: true
+  reactivityTransform: true,
 })
 ```
 
@@ -265,8 +275,8 @@ To get TypeScript support, update your `tsconfig.json` with:
 {
   "compilerOptions": {
     "types": [
-      "unplugin-vue2-script-setup/types",
-      "unplugin-vue2-script-setup/ref-macros"
+      "@minar-kotonoha/unplugin-vue2-script-setup-sync/types",
+      "@minar-kotonoha/unplugin-vue2-script-setup-sync/ref-macros"
     ]
   }
 }

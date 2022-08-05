@@ -3,7 +3,7 @@ import { transform as t } from '../src'
 
 describe('errors', () => {
   it('langs', async () => {
-    await expect(() =>
+    expect(() =>
       t(`
 <script setup>
 const a = 1
@@ -12,38 +12,38 @@ const a = 1
 <script lang="ts">
 export default {}
 </script>
-`, 'Lang.vue')).rejects.toThrowError('<script setup> language must be the same as <script>')
+`, 'Lang.vue')).toThrowError('<script setup> language must be the same as <script>')
   })
 
   it('defineProps', async () => {
-    await expect(() =>
+    expect(() =>
       t(`
 <script setup>
 defineProps()
 const a = defineProps()
 </script>
 `, 'DefineProps.vue'))
-      .rejects.toThrowError('duplicate defineProps() call')
+      .toThrowError('duplicate defineProps() call')
   })
 
   it('top-level await', async () => {
-    await expect(() =>
+    expect(() =>
       t(`
 <script setup>
 defineProps()
 await something()
 </script>
 `, 'TopLevel.vue'))
-      .rejects.toThrowError('top-level await is not supported in Vue 2')
+      .toThrowError('top-level await is not supported in Vue 2')
 
-    await expect(() =>
+    expect(() =>
       t(`
 <script setup>
 defineProps()
 const {data} = await something()
 </script>
 `, 'TopLevel.vue'))
-      .rejects.toThrowError('top-level await is not supported in Vue 2')
+      .toThrowError('top-level await is not supported in Vue 2')
   })
 
   it('ref sugar', async () => {

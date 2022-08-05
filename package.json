@@ -1,17 +1,17 @@
 {
-  "name": "unplugin-vue2-script-setup",
+  "name": "@minar-kotonoha/unplugin-vue2-script-setup-sync",
   "version": "0.11.3",
   "packageManager": "pnpm@7.5.0",
   "description": "Bring <script setup> to Vue 2",
   "keywords": [],
-  "homepage": "https://github.com/antfu/unplugin-vue2-script-setup#readme",
+  "homepage": "https://github.com/chengzhuo5/unplugin-vue2-script-setup#readme",
   "bugs": {
-    "url": "https://github.com/antfu/unplugin-vue2-script-setup/issues"
+    "url": "https://github.com/chengzhuo5/unplugin-vue2-script-setup/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/unplugin-vue2-script-setup.git"
+    "url": "git+https://github.com/chengzhuo5/unplugin-vue2-script-setup.git"
   },
   "funding": "https://github.com/sponsors/antfu",
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
@@ -64,7 +64,7 @@
     "dev": "rollup -c --watch",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "nr lint -- --fix",
-    "build:examples": "pnpm -r --filter=!unplugin-vue2-script-setup run build",
+    "build:examples": "pnpm -r --filter=!@minar-kotonoha/unplugin-vue2-script-setup-sync run build",
     "play": "npm -C playground run dev",
     "prepublishOnly": "nr build",
     "release": "bumpp --commit --push --tag && pnpm publish",
@@ -73,13 +73,7 @@
   },
   "peerDependencies": {
     "@vue/composition-api": "*",
-    "@vue/runtime-dom": "^3.2.31",
-    "pug": "^3.0.2"
-  },
-  "peerDependenciesMeta": {
-    "pug": {
-      "optional": true
-    }
+    "@vue/runtime-dom": "^3.2.31"
   },
   "dependencies": {
     "@antfu/utils": "^0.5.2",
@@ -95,6 +89,7 @@
     "@vue/shared": "^3.2.36",
     "defu": "^6.0.0",
     "magic-string": "^0.26.2",
+    "pug": "^3.0.2",
     "unplugin": "^0.7.2"
   },
   "devDependencies": {
@@ -114,7 +109,6 @@
     "bumpp": "^7.1.1",
     "eslint": "^8.16.0",
     "fast-glob": "^3.2.11",
-    "pug": "^3.0.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.74.1",
     "rollup-plugin-dts": "^4.2.1",
@@ -125,7 +119,11 @@
   },
   "pnpm": {
     "overrides": {
-      "unplugin-vue2-script-setup": "workspace:*"
+      "@minar-kotonoha/unplugin-vue2-script-setup-sync": "workspace:*"
     }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }
