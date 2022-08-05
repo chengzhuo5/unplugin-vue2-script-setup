@@ -4,6 +4,8 @@
 
 Bring [`<script setup>`](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to Vue 2. Works for Vite, Nuxt, Vue CLI, Webpack, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
 
+> ⚠️ With the release of [Vue 2.7](https://blog.vuejs.org/posts/vue-2-7-naruto.html), which has Composition API and `<script setup>` built-in, **you no longer need this plugin**. Thereby this plugin has entered maintenance mode and will only support Vue 2.6 or earlier. This project will reach End of Life by the end of 2022.
+
 ## Install
 
 ```bash
@@ -44,76 +46,9 @@ Example: [`playground/`](./playground/)
 <details>
 <summary>Nuxt</summary><br>
 
-> From v0.28.0 of `@nuxtjs/composition-api`, this plugin is included and enabled out-of-box.
+> It's built-in in [Nuxt Bridge](https://github.com/nuxt/bridge).
 
-```bash
-npm i @nuxtjs/composition-api
-```
-
-```ts
-// nuxt.config.js
-export default {
-  buildModules: [
-    '@nuxtjs/composition-api/module',
-  ],
-  scriptSetup: { /* options */ },
-}
-```
-
-> This module works for both Nuxt 2 and [Nuxt Vite](https://github.com/nuxt/vite)
-
-Example: [`examples/nuxt`](./examples/nuxt)
-
-###### Component Meta
-
-Note that `<script setup>` could co-exist with `<script>`, if you want to define component metadata like `layout` or `head` for Nuxt, you can do it this way:
-  
-```html
-<script setup lang="ts">
-// your script setup
-</script>
-
-<script lang="ts">
-// the normal script
-export default {
-  layout: 'user',
-  // ...other meta
-}
-</script>
-```
-  
-###### TypeScript
-
-To use TypeScript with Nuxt, install the [`@nuxtjs/typescript-module`](https://typescript.nuxtjs.org/) but disable the type check:
-
-```bash
-npm i -D @nuxt/typescript-build vue-tsc
-```
-
-```ts
-// nuxt.config.js
-export default {
-  buildModules: [
-    ['@nuxt/typescript-build', { typeCheck: false }],
-    '@nuxtjs/composition-api/module',
-    'unplugin-vue2-script-setup/nuxt',
-  ],
-}
-```
-
-And then use [`vue-tsc`](https://github.com/johnsoncodehk/volar) to do the type check at build time:
-
-```jsonc
-// package.json
-{
-  "scripts": {
-    "dev": "nuxt",
-    "build": "vue-tsc --noEmit && nuxt build"
-  }
-}
-```
-
-<br></details>
+</details>
 
 <details>
 <summary>Vue CLI</summary><br>
@@ -123,7 +58,7 @@ And then use [`vue-tsc`](https://github.com/johnsoncodehk/volar) to do the type 
 const ScriptSetup = require('unplugin-vue2-script-setup/webpack').default
 
 module.exports = {
-  parallel: false,  // disable thread-loader, which is not compactible with this plugin
+  parallel: false, // disable thread-loader, which is not compactible with this plugin
   configureWebpack: {
     plugins: [
       ScriptSetup({ /* options */ }),
